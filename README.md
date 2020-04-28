@@ -1,1 +1,1 @@
-# SpringBoot_React_App
+# SpringBoot & ReactJS Applications
