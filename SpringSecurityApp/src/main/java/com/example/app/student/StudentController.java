@@ -18,7 +18,8 @@ public class StudentController {
 			new Student(1, "ROHITH", Gender.MALE),
 			new Student(2, "ABC", Gender.MALE),
 			new Student(3, "XYZ", Gender.FEMALE),
-			new Student(4, "ABCDXYZ", Gender.MALE)
+			new Student(4, "ABCDXYZ", Gender.FEMALE),
+			new Student(5, "cole", Gender.MALE)
 			);
 
 	@GetMapping("")

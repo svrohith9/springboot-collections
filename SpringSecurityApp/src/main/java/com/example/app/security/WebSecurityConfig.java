@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import com.example.app.student.UserPermission;
+import com.example.app.student.UserRole;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,17 +28,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
+		http.authorizeRequests()
+		.antMatchers("/api/v1/**")//   giving access for only students for this api/v1/<internal pages>
+		.hasAnyRole(UserRole.STUDENT.name())
+		.anyRequest()
+		.authenticated()
+		.and()
+		.httpBasic();
 	}
 
 	@Bean
 	@Override
 	protected UserDetailsService userDetailsService() {
+		
 		UserDetails rohith = User.builder()
 				.username("svrohith9")
 				.password(passwordEncoder.encode("saynada"))
-				.roles("STUDENT")
+				.roles(UserRole.STUDENT.name())
 				.build();
-		return new InMemoryUserDetailsManager(rohith);
+		
+		UserDetails cole = User.builder()
+				.username("cole")
+				.password(passwordEncoder.encode("butterfly"))
+				.roles(UserRole.ADMIN.name())
+				.build();
+
+		return new InMemoryUserDetailsManager(rohith, cole);
 	}
 }
