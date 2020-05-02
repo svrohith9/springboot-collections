@@ -29,7 +29,7 @@ public class StudentManagementController {
 			new Student(5, "cole", Gender.MALE));
 
 	@GetMapping
-	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADINTRAINEE')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')")
 	public List<Student> getAllStudents() {
 		LOGGER.info("getStudents");
 		return STUDENTS;
