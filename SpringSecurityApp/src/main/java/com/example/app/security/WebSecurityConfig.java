@@ -1,9 +1,11 @@
 package com.example.app.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,12 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import com.example.app.student.UserPermission;
 import com.example.app.student.UserRole;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	private static Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);
 
 	private final PasswordEncoder passwordEncoder;
 
@@ -33,10 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf().disable()
 		.authorizeRequests()
 		.antMatchers("/api/v1/**").hasRole(UserRole.STUDENT.name())
-		.antMatchers(HttpMethod.DELETE,"management/api/v1/**").hasAnyAuthority(UserPermission.COURSE_WRITE.name())
-		.antMatchers(HttpMethod.PUT,"management/api/v1/**").hasAnyAuthority(UserPermission.COURSE_WRITE.name())	
-		.antMatchers(HttpMethod.POST,"management/api/v1/**").hasAnyAuthority(UserPermission.COURSE_WRITE.name())
-		.antMatchers(HttpMethod.GET,"management/api/v1/**").hasAnyRole(UserRole.ADMIN.name(), UserRole.ADMINTRAINEE.name())
 		.anyRequest()
 		.authenticated()
 		.and()
@@ -46,28 +46,34 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	@Override
 	protected UserDetailsService userDetailsService() {
-		
+
 		UserDetails rohith = User.builder()
 				.username("svrohith9")
-				.password(passwordEncoder.encode("saynada"))
+				.password(passwordEncoder.encode("yummy"))
 //				.roles(UserRole.STUDENT.name())
-				.authorities(UserRole.STUDENT.getAuthorities())
+				.authorities(UserRole.STUDENT.getGrantedAuthorities())
 				.build();
+		
+		LOGGER.info("UserRohith details created");
 		
 		UserDetails cole = User.builder()
 				.username("cole")
-				.password(passwordEncoder.encode("butterfly"))
+				.password(passwordEncoder.encode("yummy"))
 //				.roles(UserRole.ADMIN.name())
-				.authorities(UserRole.ADMIN.getAuthorities())
+				.authorities(UserRole.ADMIN.getGrantedAuthorities())
 				.build();
+		
+		LOGGER.info("UserCole details created");
 		
 		UserDetails adminTrainee=User.builder()
 				.username("adil")
 				.password(passwordEncoder.encode("yummy"))
 //				.roles(UserRole.ADMINTRAINEE.name())
-				.authorities(UserRole.ADMINTRAINEE.getAuthorities())
+				.authorities(UserRole.ADMINTRAINEE.getGrantedAuthorities())
 				.build();
 
+		LOGGER.info("UserAdil details created");
+		
 		return new InMemoryUserDetailsManager(rohith, cole, adminTrainee);
 	}
 }
