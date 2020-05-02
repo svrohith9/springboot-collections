@@ -22,11 +22,6 @@ public class StudentController {
 			new Student(5, "cole", Gender.MALE)
 			);
 
-	@GetMapping("")
-	public List<Student> getStudents() {
-		return STUDENTS.stream().collect(Collectors.toList());
-	}
-
 	@GetMapping("/{id}")
 	public Student getStudent(@PathVariable int id) {
 		return STUDENTS.stream()
