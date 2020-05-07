@@ -57,12 +57,6 @@ public class MainClass {
 	static Supplier<String> getURL = () -> "locolhost:8080";
 	
 	
-	//JS in Java
-	
-	function hello() {
-		console.log("hello");
-	}
-	
-	
+
 
 }
