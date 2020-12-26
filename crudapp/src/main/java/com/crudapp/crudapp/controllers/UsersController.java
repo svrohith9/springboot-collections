@@ -34,13 +34,13 @@ public class UsersController {
 	}
 
 	@PostMapping("/load")
-	public Users AddorUpdateUser(@RequestBody final Users user) {
+	public Users addorUpdateUser(@RequestBody final Users user) {
 		usersRepository.save(user);
 		return user;
 	}
 
 	@GetMapping("/delete/{name}")
-	public void DeleteUser(@PathVariable final String name) {
+	public void deleteUser(@PathVariable final String name) {
 		 usersRepository.deleteById(getUser(name).getId());
 	}
 
