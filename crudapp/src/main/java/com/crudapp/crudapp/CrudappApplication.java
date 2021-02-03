@@ -1,9 +1,5 @@
 package com.crudapp.crudapp;
 
-import javax.annotation.PreDestroy;
-import javax.persistence.PreUpdate;
-
-import org.hibernate.annotations.Loader;
 import org.mapstruct.BeforeMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -16,16 +12,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 public class CrudappApplication {
-	
+
 	@Autowired
 	UsersRepository usersRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CrudappApplication.class, args);
 	}
-	
-@BeforeMapping
-private static void loadData() {
-	
-}
+
+	@BeforeMapping
+	private static void loadData() {
+
+	}
 }
