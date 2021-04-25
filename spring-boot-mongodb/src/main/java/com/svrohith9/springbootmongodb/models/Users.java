@@ -23,5 +23,5 @@ public class Users {
 	private String firstName;
 	@JsonProperty("Phone No")
 	@Field("Phone No")
-	private String mobileNumber;
+	private Object mobileNumber;
 }
