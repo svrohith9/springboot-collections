@@ -19,4 +19,4 @@ $ mvn clean install
 
 - Deploy the application with below Lambda properties
 
-![Img NA](https://github.com/svrohith9/aws-lambda-springboot-api/blob/main/src/main/resources/Sample/runtime_settings.PNG)
+![Img NA](https://github.com/svrohith9/springboot-collections/blob/master/aws-lambda-springboot-api-main/src/main/resources/Sample/runtime_settings.PNG)
