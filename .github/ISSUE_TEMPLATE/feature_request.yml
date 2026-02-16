@@ -1,0 +1,21 @@
+name: Feature request
+description: Suggest an enhancement for a module
+labels: [enhancement]
+body:
+  - type: input
+    id: module
+    attributes:
+      label: Target module
+      placeholder: e.g., spring-boot-mongodb
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Developer/user impact
